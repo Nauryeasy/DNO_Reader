@@ -1,0 +1,13 @@
+ {% extends "base.html" %}
+
+{% block title %}DNO! - {{ data.category_name }}{% endblock %}
+
+{% block style %}
+{% endblock %}
+
+{% block content %}
+    <h2>{{ data.category.name }}</h2>
+    {% for book in data.books %}
+        <a href="/../book/{{ book.id }}">{{ book.name }}</a>
+    {% endfor %}
+{% endblock %}

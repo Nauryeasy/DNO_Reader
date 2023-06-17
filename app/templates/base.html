@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #007bff;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+        }
+
+        .site-name a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .site-name {
+            font-size: 24px;
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-menu .profile-button {
+            background-color: #fff;
+            color: #007bff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .user-menu .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .user-menu .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .user-menu:hover .dropdown-content {
+            display: block;
+        }
+
+        .search-field {
+            padding: 8px;
+            width: 300px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .category-menu {
+            background-color: #ccc;
+            padding: 20px;
+            position: fixed;
+            top: 1;
+            right: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+        }
+
+        .author_menu {
+            background-color: #ccc;
+            padding: 20px;
+            position: fixed;
+            top: 1;
+            right: 0;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+
+        }
+
+        .author_menu a {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color: #000;
+            text-decoration: none;
+        }
+
+        .category-menu a {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color: #000;
+            text-decoration: none;
+        }
+
+        .toggle_button {
+            margin-top: -10px;
+            padding: 5px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+
+        .toggle_button:hover {
+            background-color: #032f5e;
+        }
+        {% block style %}
+        {% endblock %}
+    </style>
+    <script>
+        function showAuthorMenu() {
+            document.getElementById("category-menu").style.display = "none";
+            document.getElementById("author-menu").style.display = "block";
+        }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <div class="user-menu">
+            {% if data.is_login %}
+                <button class="profile-button">{{ data.username }}</button>
+                <div class="dropdown-content">
+                    <a href="/profile/{{ data.username }}">Profile</a>
+                    <a href="/upload">Upload book</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            {% else %}
+                <a href="/login" class="profile-button">Login</a>
+            {% endif %}
+        </div>
+        <div class="site-name"><a href="/">DNO!</a></div>
+        <form>
+            <input type="text" class="search-field" placeholder="Search books">
+        </form>
+    </div>
+
+    <div class="category-menu">
+        <button onclick="toggleMenu()" class="toggle_button">Toggle Menu</button>
+        {% for category in data.categories %}
+            <a href="/category/{{ category.id }}">{{ category.name }}</a>
+        {% endfor %}
+    </div>
+    <div class="author_menu">
+        <button onclick="toggleMenu()" class="toggle_button">Toggle Menu</button>
+        {% for author in data.authors %}
+            <a href="/author/{{ author.id }}">{{ author.name }}</a>
+        {% endfor %}
+    </div>
+    <div class="main">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <script>
+        var categoryMenu = document.querySelector('.category-menu');
+        var authorMenu = document.querySelector('.author_menu');
+
+        function toggleMenu() {
+        if (categoryMenu.style.display === 'none') {
+            categoryMenu.style.display = 'flex';
+            authorMenu.style.display = 'none';
+        } else {
+            categoryMenu.style.display = 'none';
+            authorMenu.style.display = 'flex';
+        }
+        }
+  </script>
+</body>
+</html>

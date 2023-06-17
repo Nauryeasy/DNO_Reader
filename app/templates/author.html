@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}DNO! - {{ data.author.name }}{% endblock %}
+
+{% block content %}
+    <h2>{{ data.author.name }}</h2>
+    {% for book in data.books %}
+        <a href="/../book/{{ book.id }}">{{ book.name }}</a>
+    {% endfor %}
+{% endblock %}

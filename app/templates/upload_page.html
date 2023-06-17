@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}DNO! - Upload Book{% endblock %}
+
+{% block style %}
+        .upload h4 {
+            color: #ff0505;
+            margin-bottom: 10px;
+        }
+
+        .upload form {
+            width: 87%;
+            margin-left: 5px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .upload label {
+            font-weight: bold;
+        }
+
+        .upload input[type="text"],
+        .upload input[type="file"],
+        .upload input[type="submit"] {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 98%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .upload input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .upload input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+{% endblock %}
+
+{% block content %}
+  <div class="upload">
+  <h4>{{ message }}</h4>
+      <form enctype="multipart/form-data" method="post">
+          <label>Title</label>
+          <input type="text" name="title"><br>
+
+          <label for="author_name">Author name</label>
+          <input type="text" id="author_name" name="author_name"><br>
+
+          <label for="category">Category</label>
+          <input type="text" id="category" name="category"><br>
+
+          <label for="file">Text of book:</label>
+          <input type="file" id="file" name="file" required><br>
+
+          <input type="submit" value="Отправить">
+      </form>
+  </div>
+{% endblock %}
