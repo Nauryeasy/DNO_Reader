@@ -67,7 +67,7 @@ def login():
     message_reg = ''
     try:
         message_reg = session.get('data')['message_reg']
-        session.get('data')['message_reg'] = ''
+        session['data'] = {}
     except:
         message_reg = ''
 
@@ -261,6 +261,8 @@ def upload_page():
 
             db.session.add(book)
             db.session.commit()
+
+            return redirect(f'/book/{book.id}')
         else:
             message = 'Книга не была загружена =('
 

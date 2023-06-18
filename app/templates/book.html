@@ -65,7 +65,7 @@ button:disabled {
     const bookText = `{{ data.book_text }}`;
 
     function displayPage(page) {
-      const pageSize = 3000; // Number of characters per page
+      const pageSize = 2500; // Number of characters per page
       const start = page * pageSize;
       const end = (page + 1) * pageSize;
       const pageText = bookText.substring(start, end);
